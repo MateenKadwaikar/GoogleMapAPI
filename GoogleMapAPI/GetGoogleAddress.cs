@@ -11,10 +11,7 @@ namespace GoogleMapAPI
     {
         public async static Task<GoogleModel> GoogleAddress(string address)
         {
-
             var googleApiUrl = ConfigurationManager.AppSettings["GoogleApiUrl"];
-            var googleApiKey = ConfigurationManager.AppSettings["GoogleApiKey"];
-
 
             using (var client = new HttpClient())
             {
