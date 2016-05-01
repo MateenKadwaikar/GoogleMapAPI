@@ -7,7 +7,7 @@ It is a Console applicaton to show you the basic idea about integrating Google M
 
 Get location details from Google API by passing Address or ZipCode.
 
-You just have to pass the Address and it will give you the details.
+You just have to pass the Address /Zipcode ( any one)  and it will give you the details.
 
  
 
