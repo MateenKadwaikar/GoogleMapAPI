@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -15,19 +16,27 @@ namespace GoogleMapAPI
 
             using (var client = new HttpClient())
             {
-                var userAddress = address;
-                var url = string.Format(googleApiUrl + "{0}", userAddress);
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                try
+                {
+                    var userAddress = address;
+                    var url = string.Format(googleApiUrl + "{0}", userAddress);
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var response = await client.GetAsync(url);
-                if (!response.IsSuccessStatusCode) return null;
-                var result = await response.Content.ReadAsStringAsync();
+                    var response = await client.GetAsync(url);
+                    if (!response.IsSuccessStatusCode) return null;
+                    var result = await response.Content.ReadAsStringAsync();
 
-                //De-Serialize
-                var responses = JsonConvert.DeserializeObject<GoogleModel>(result);
+                    //De-Serialize
+                    var responses = JsonConvert.DeserializeObject<GoogleModel>(result);
 
-                return responses;
+                    return responses;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message);
+                }
+              
             }
         }
     }
